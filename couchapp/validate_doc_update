@@ -1,0 +1,3 @@
+function(newdoc, oldDoc, userCtx ){
+	newdoc['test'] = 'foo'; 
+}
