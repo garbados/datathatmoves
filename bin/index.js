@@ -20,16 +20,6 @@ function main (count) {
 
       results.forEach(function (result, i) {
         console.log(result[0], '\n\t', result[1]);
-        // if (!results[i-1]) {
-        //   // start case
-        //   console.log('First replication arrives in', result[0], 'at', new Date(result[1]));
-        // } else if (!results[i+1]) {
-        //   // end case
-        //   console.log('Last replication arrived in', result[0], 'at', new Date(result[1]));
-        // } else {
-        //   // typical case
-        //   console.log('Took', result[1] - results[i-1][1], 'ms to get to', result[0]);
-        // }
       });
 
       console.log('In all, took', total, 'ms');
@@ -39,6 +29,7 @@ function main (count) {
   }
 
   async.timesSeries(count || 1, lets_do_it, function (err, results) {
+    console.log("Avg:", results.reduce(function (a, b) { return a + b; }, 0) / results.length, "ms");
     process.exit(0);
   });
 }
