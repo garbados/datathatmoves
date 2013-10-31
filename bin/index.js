@@ -9,41 +9,37 @@ function main (count) {
   var to_execute = [];
 
   function lets_do_it (n, done) {
-    lib.run(function (results) {
-      var hosts = [],
-          times = [];
+    lib.run_clean(function (err, results) {
+      if (err) throw err;
 
-      results.forEach(function (result) {
-        var status = result[1],
-            parts = url.parse(status.uri);    
-
-        hosts.push([parts.hostname, status.date]);
+      results = results.sort(function (a, b) { 
+        return a[1] - b[1];
       });
 
-      hosts.forEach(function (host, i) {
-        if (!hosts[i-1]) {
-          console.log('Started travelling the world at', host[1]);
-        } else {
-          var diff = new Date(host[1]).getTime() - new Date(hosts[i-1][1]).getTime();
-          times.push(diff / 1000);
-          console.log('Took', diff / 1000, 'seconds to get to', host[0]);
-        }
-        if (!hosts[i+1]) {
-          var diff = new Date(host[1]).getTime() - new Date(hosts[0][1]).getTime();
-          times.push(diff / 1000);
-          console.log('Finished travelling at', host[1]);
-          console.log('In all, took', diff / 1000, 'seconds');
-        }
+      var total = results[results.length-1][1] - results[0][1];
+
+      results.forEach(function (result, i) {
+        console.log(result[0], '\n\t', result[1]);
+        // if (!results[i-1]) {
+        //   // start case
+        //   console.log('First replication arrives in', result[0], 'at', new Date(result[1]));
+        // } else if (!results[i+1]) {
+        //   // end case
+        //   console.log('Last replication arrived in', result[0], 'at', new Date(result[1]));
+        // } else {
+        //   // typical case
+        //   console.log('Took', result[1] - results[i-1][1], 'ms to get to', result[0]);
+        // }
       });
 
-      done(null, times);
+      console.log('In all, took', total, 'ms');
+
+      done(total);
     });
   }
 
   async.timesSeries(count || 1, lets_do_it, function (err, results) {
-    if (count) {
-      console.log(results);
-    }
+    process.exit(0);
   });
 }
 
