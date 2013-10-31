@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "./bin/index.js"
   },
   "dependencies": {
+    "async": "~0.2.9",
+    "nano": "~4.1.4",
+    "dive": "~0.3.0"
   }
 }
