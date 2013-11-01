@@ -12,25 +12,31 @@ function main (count) {
     lib.run_clean(function (err, results) {
       if (err) throw err;
 
-      results = results.sort(function (a, b) { 
+      var start_time = results[0],
+          changes = results[1];
+
+      changes = changes.sort(function (a, b) { 
         return a[1] - b[1];
       });
 
-      var total = results[results.length-1][1] - results[0][1];
+      var total = changes[changes.length-1][1] - start_time;
 
-      results.forEach(function (result, i) {
-        console.log(result[0], '\n\t', result[1]);
+      changes.forEach(function (change, i) {
+        console.log(change[0], '\n\t', change[1] - start_time, "ms");
       });
 
       console.log('In all, took', total, 'ms');
 
-      done(total);
+      done(null, total);
     });
   }
 
   async.timesSeries(count || 1, lets_do_it, function (err, results) {
-    console.log("Avg:", results.reduce(function (a, b) { return a + b; }, 0) / results.length, "ms");
-    process.exit(0);
+    if (results.length > 1) {
+      console.log(results);
+      console.log("Avg:", results.reduce(function (a, b) { return a + b; }, 0) / results.length, "ms"); 
+    }
+    // process.exit(0);
   });
 }
 
