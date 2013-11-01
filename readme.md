@@ -15,8 +15,8 @@ How long will it take?
 
 First, get this repo and its dependencies. Get [node.js](http://nodejs.org/), then run this:
 
-    git clone [repo]
-    cd [repo]
+    git clone git@github.com:garbados/datathatmoves.git
+    cd datathatmoves
     npm install
 
 Now, we'll need accounts in every data center:
