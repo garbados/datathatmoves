@@ -30,11 +30,7 @@ If you stop the `npm start` script mid-way, use `bin/cleanup.js` to reset your d
 
 # Let's give it a go, shall we?
 
-## tl;dr
-
-<iframe border='0' height='418' id='shelr_record_5273c0ef9660807c4f000003' scrolling='no' src='http://shelr.tv/records/5273c0ef9660807c4f000003/embed' style='border: 0' width='570'></iframe>
-
-## Details
+**tl;dr: [a video of the script](http://shelr.tv/records/5273c0ef9660807c4f000003)**
 
 On average, my setup reported the image replicating around the world in under four seconds, or 3738.75 ms. Here's the sample output from one run:
 
